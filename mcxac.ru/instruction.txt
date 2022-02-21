@@ -1,0 +1,3 @@
+1. download python
+2. download chrome-web-driver
+3. pip install bs4 selenium requests csv
