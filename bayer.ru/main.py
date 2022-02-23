@@ -2,21 +2,18 @@ from array import array
 from bs4 import BeautifulSoup, Tag
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from pages.g4a import G4Akey
+from pages.g4a.g4a import g4aKey
 
 import csv
-import time
 
 СHROME_DIRVER_PATH = 'C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe' # driver path
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
-driver = webdriver.Chrome(СHROME_DIRVER_PATH, options=options)
-
 FURL = dict()
 
-G4Akey(FURL)
+g4aKey(FURL)
 
 def		tag_to_listdict(tag: Tag) -> list:
 	lst = []
@@ -40,9 +37,10 @@ def		write_to_csv(file, year: str, dictlist: list, delimeter: str=";") ->None:
 	csvwriter.writerow([""])
 
 for csvname in FURL:
+	driver = webdriver.Chrome(СHROME_DIRVER_PATH, options=options)
 	URL = FURL[csvname]
 	driver.get(URL)
-	csvfile = open("./pages/" + csvname, 'w+', newline='', encoding="utf-8")
+	csvfile = open(csvname, 'w+', newline='', encoding="utf-8")
 	soup = BeautifulSoup(driver.page_source, "html.parser")
 	driver.close()
 	driver.quit
